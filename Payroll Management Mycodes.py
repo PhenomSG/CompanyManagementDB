@@ -5,7 +5,7 @@ from tabulate import tabulate
 
 db = input("Enter name of your Database: ")
 
-mydb = mysql.connector.connect(host='localhost',user='root',passwd='')
+mydb = mysql.connector.connect(host='localhost',user='root',password ='sahaj')
 mycursor = mydb.cursor()
 
 sql = "CREATE DATABASE if not exists %s" % (db,)
@@ -29,6 +29,7 @@ HRA float,\
 GrossSalary float,\
 Tax float,\
 NetSalary float)"
+
 # table created
 print("Table "+ TableName +" Created Successfully....  ")
 mycursor.execute(query)
