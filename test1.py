@@ -182,9 +182,9 @@ while True:
 
     elif choice == '4':
         try:
-            ch=input('Do you want to delete all the records (y/n)')
-            if ch.upper()=='Y':
-                mycursor.execute('Delete from'+ table_name)
+            ch=input('Do you want to delete all the records (y/n) --- ')
+            if ch.lower()=='y':
+                mycursor.execute('DELETE FROM'+ table_name)
                 mydb.commit()
                 print('All the Records are Deleted....  ')
         except Exception as e:
