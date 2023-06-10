@@ -184,9 +184,32 @@ while True:
         try:
             ch=input('Do you want to delete all the records (y/n) --- ')
             if ch.lower()=='y':
-                mycursor.execute('DELETE FROM'+ table_name)
+                mycursor.execute('DROP TABLE '+ table_name)
                 mydb.commit()
                 print('All the Records are Deleted....  ')
+                table_name = input("\nEnter Table Name: ")
+                table_check = check_table_exists('localhost', 'root', 'sahaj', db, table_name)
+
+                if table_check == 0:
+                    query = "CREATE TABLE " + table_name + "\
+                    (empno int primary key,\
+                    name varchar(15) not null,\
+                    job varchar(15),\
+                    BasicSalary int,\
+                    DA float,\
+                    HRA float,\
+                    GrossSalary float,\
+                    Tax float,\
+                    NetSalary float)"
+
+                    mycursor.execute(query)
+                    print("Table "+ table_name +" Created Successfully....  ")
+                else:
+                    print("Operations will be performed in the Table ",table_name)
+
+
+            else:
+                continue
         except Exception as e:
             print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
