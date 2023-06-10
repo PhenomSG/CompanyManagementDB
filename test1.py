@@ -8,31 +8,93 @@ db = input("Enter name of your Database: ")
 mydb = mysql.connector.connect(host='localhost',user='root',password ='sahaj')
 mycursor = mydb.cursor()
 
+''' this function checks if database exists or not
+returns 1 if database exists
+returns 0 if database does not exists '''
 
-sql = "CREATE DATABASE if not exists %s" % (db,)
-# if not helps when we create database of same name
-# %s will be replaced by db
-mycursor.execute(sql)
-print("Success....  ")
+def check_database_exists(host, username, password, db):
+    try:
+        connection = mysql.connector.connect(
+            host=host,
+            user=username,
+            password=password,
+            database=db
+        )
+        cursor = connection.cursor()
+        cursor.execute("SELECT DATABASE()")
 
-mycursor = mydb.cursor()
-mycursor.execute("Use " + db)
-TableName = input("\nName of the Table to be created/opened: ")
+        result = cursor.fetchone()
+        if result[0] == db:
+            print(f"The database '{db}' exists.")
+            return 1
+        else:
+            print(f"The database '{db}' does not exist.")
+            return 0
+    
+    except mysql.connector.Error as error:
+        print(f"The database '{db}' does not exist.")
+        return 0
 
-query = "Create table if not exists "+ TableName +"\
-(empno int primary key,\
-name varchar(15) not null,\
-job varchar(15),\
-BasicSalary int,\
-DA float,\
-HRA float,\
-GrossSalary float,\
-Tax float,\
-NetSalary float)"
+exist = check_database_exists('localhost', 'root', 'sahaj', db)
 
-# table creation
-print("Table "+ TableName +" Created Successfully....  ")
-mycursor.execute(query)
+if exist == 0:
+    sql = "CREATE DATABASE " + db
+    mycursor.execute(sql)
+    print("Successfully created Database " + db)
+    mycursor = mydb.cursor()
+    mycursor.execute("Use " + db)
+else:
+    mycursor.execute("Use " + db)
+    print("Opening ......")
+
+table_name = input("\nEnter Table Name: ")
+
+''' this function checks if table exists in a database or not
+returns 1 if table exists
+returns 0 if table does not exists '''
+
+def check_table_exists(host, username, password, database_name, table_name):
+    try:
+        connection = mysql.connector.connect(
+            host=host,
+            user=username,
+            password=password,
+            database=database_name
+        )
+        cursor = connection.cursor()
+        cursor.execute(f"SHOW TABLES LIKE '{table_name}'")
+
+        result = cursor.fetchone()
+        if result:
+            print(f"The table '{table_name}' exists in the database '{db}'.")
+            return 1
+        else:
+            print(f"The table '{table_name}' does not exist in the database '{db}'.")
+            return 0
+    
+    except mysql.connector.Error as error:
+        print(f"The table '{table_name}' does not exist in the database '{db}'.")
+        return 0
+
+table_check = check_table_exists('localhost', 'root', 'sahaj', db, table_name)
+
+if table_check == 0:
+    query = "CREATE TABLE " + table_name + "\
+    (empno int primary key,\
+    name varchar(15) not null,\
+    job varchar(15),\
+    BasicSalary int,\
+    DA float,\
+    HRA float,\
+    GrossSalary float,\
+    Tax float,\
+    NetSalary float)"
+
+    mycursor.execute(query)
+    print("Table "+ table_name +" Created Successfully....  ")
+else:
+    print("Operations will be performed in the Table ",table_name)
+    
 
 while True:
     print('\n\n\n')
@@ -49,11 +111,12 @@ while True:
     print('\t\t\t 8. For displaying Salary Slips of all Employees')
     print('\t\t\t 9. For displaying Salary Slip of a particular Employee')
     print('\t\t\t 10. To Exit')
+    print("Enter the number from the options")
 
     print('Enter Your Choice ----  ',end='')
-    choice = int(input())
+    choice = (input())
 
-    if choice==1:
+    if choice == '1':
         try:
             print("Enter Employee Information below : ")
             mempno = int(input('Enter Employee Number ---- '))
@@ -61,48 +124,51 @@ while True:
             mjob = input('Enter Employee Job ---- ')
             mbasic = float(input('Enter Basic Salary ---- '))
 
-            if mjob.upper()=='OFFICER':
-                mda=mbasic*0.5
-                mhra=mbasic*0.35
-                mtax=mbasic*0.2
-            elif mjob.upper()=='MANAGER':
-                mda=mbasic*0.45
-                mhra=mbasic*0.30
-                mtax=mbasic*0.15
-            else:
-                mda=mbasic*0.40
-                mhra=mbasic*0.25
-                mtax=mbasic*0.1
-            mgross=mbasic+mda+mhra
-            mnet=mgross-mtax
-            rec=(mempno,mname,mjob,mda,mhra,mgross,mtax,mnet)
+            if mjob.lower() == 'officer':
+                mda = mbasic * 0.5
+                mhra = mbasic * 0.35
+                mtax = mbasic * 0.2
 
-            query="insert into " + TableName + " values (%i, %s, %s, %f, %f, %f, %f, %f)"
+            elif mjob.lower() == 'manager':
+                mda = mbasic * 0.45
+                mhra = mbasic * 0.30
+                mtax = mbasic * 0.15
+
+            else:
+                mda = mbasic * 0.40
+                mhra = mbasic * 0.25
+                mtax = mbasic * 0.1
+
+            mgross = mbasic + mda + mhra
+            mnet = mgross - mtax
+            rec = (mempno, mname, mjob, mbasic, mda, mhra, mgross, mtax, mnet)
+
+            query = "INSERT INTO " + table_name + " VALUES (%i, %s, %s, %i, %f, %f, %f, %f, %f)"
+            
             mycursor.execute(query,rec)
             mydb.commit()
             print("Record added Successfully....  ")
 
         except Exception as e:
-            print('OOPS !!! something when wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ', e)
 
 
-    elif choice==2:
+    elif choice == '2':
         try:
-            query='select * from ' +TableName
+            query = 'select * from ' + table_name
             mycursor.execute(query)
-            #print(query)
             print(tabulate(mycursor, headers=['EmpNo','Name','Job','Basic Salary','DA','HRA','Gross Salary','Tax','Net Salary'], tablefmt='psql'))
             '''myrecords=mycursor.fetchall()
             for rec in myrecords:
             print(rec)'''
 
         except Exception as e:
-            print('OOPS !!! something when wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
-    elif choice==3:
+    elif choice == '3':
         try:
             en=input("Enter Employee Number of the record to be displayed....  ")
-            query="select * from"+TableName+"where empno="+en
+            query="select * from"+ table_name +"where empno="+en
             mycursor.execute(query)
             myrecord=mycursor.fetchone()
             print("\n\n Record of Employee Number.:"+en)
@@ -111,24 +177,24 @@ while True:
             if c==-1:
                 print('Nothing to display')
         except Exception as e:
-            print('OOPS !!! something when wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
 
-    elif choice==4:
+    elif choice == '4':
         try:
             ch=input('Do you want to delete all the records (y/n)')
             if ch.upper()=='Y':
-                mycursor.execute('Delete from'+TableName)
+                mycursor.execute('Delete from'+ table_name)
                 mydb.commit()
                 print('All the Records are Deleted....  ')
         except Exception as e:
-            print('OOPS !!! something when wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
 
-    elif choice==5:
+    elif choice == '5':
         try:
             en=input('Enter Employee Number of the Record to be Deleted ---- ')
-            query='delete from' + TableName + 'where empno='+en
+            query='delete from' + table_name + 'where empno='+en
             mycursor.execute(query)
             mydb.commit()
             c = mycursor.rowcount
@@ -137,18 +203,18 @@ while True:
             else:
                 print('Employee Number',en,'not found')
         except Exception as e:
-            print('OOPS !!! something when wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
 
-    elif choice==6:
+    elif choice == '6':
         try:
             en=input('Enter Employee Number of the Record to be modified ---- ')
-            query='select * from'+TableName+'where empno='+en
+            query='select * from'+ table_name +'where empno='+en
             mycursor.execute(query)
             myrecord=mycursor.fetchone()
             c=mycursor.rowcount
             if c==-1:
-                print('Empno'+en+'does not exist')
+                print('Empno'+ en +'does not exist')
             else:
                 mname=myrecord[1]
                 mjob=myrecord[2]
@@ -173,26 +239,26 @@ while True:
                 x=input('Enter Basic Salary ----  ')
                 if len(x)>0:
                     mbasic=float(x)
-                query='update' + TableName + 'ste name=' + "'" + mname + "'" + "'" + 'job' + "'" + ',' + 'basicsalary='\
+                query='update' + table_name + 'ste name=' + "'" + mname + "'" + "'" + 'job' + "'" + ',' + 'basicsalary='\
                        +str(mbasic) + 'where empno=' + en
                 print(query)
                 mycursor.execute(query)
                 mydb.commit()
                 print('Record Modified.... ')
         except Exception as e:
-            print('OOPS !!! something when wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
 
-    elif choice==7:
+    elif choice == '7':
         try:
-            query='select * from'+TableName
+            query='select * from'+ table_name
             mycursor.execute(query)
             myrecords=mycursor.fetchall()
             print("\n\n\n")
             print('*'*95)
             print('Employee Payroll'.centre(90))
             print("*"*95)
-            now=datetime.datetime.now()
+            now = datetime.datetime.now()
             print("Current Date and Time:",end=' ')
             print(now.steftime("%Y-%m-%d  %H:%M:%S "))
             print()
@@ -204,12 +270,12 @@ while True:
                 print('%4d %-15s %-10s %8.2f %8.2f %8.2f %9.2f %8.2f %9.2f'%rec)
             print('-'*95)
         except Exception as e:
-            print('OOPS !!! something when wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
 
-    elif choice==8:
+    elif choice == '8':
         try:
-            query='select * from'+TableName
+            query='select * from'+ table_name
             mycursor.execute(query)
             now=datetime.datetime.now()
             print("\n\n\n")
@@ -222,12 +288,12 @@ while True:
             for rec in myrecords:
                 print('%4d %-15s %-10s %8.2f %8.2f %8.2f %9.2f %8.2f %9.2f'%rec)
         except Exception as e:
-            print('OOPS !!! something when wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
-    elif choice == 9:
+    elif choice == '9':
         try:
             en=input("Enter Employee Number whose PaySlip you want to retrieve ---- ")
-            query='select * from '+TableName+' where empno='+en
+            query='select * from '+ table_name +' where empno='+en
             mycursor.execute(query)
             now=datetime.datetime.now()
             print("\n\n\n\t\t\t\t Salary Slip")
@@ -236,9 +302,9 @@ while True:
             #print(query)
             print(tabulate(mycursor, headers=['EmpNo','Name','Job','Basic Salary','DA','HRA','Gross Salary','Tax','Net Salary'], tablefmt='psql'))
         except:
-            print("OOPS !!! something when wrong. Try again.... ")
+            print("OOPS !!! something went wrong. Try again.... ")
 
-    elif choice == 10:
+    elif choice == '10':
         break
 
     else:
