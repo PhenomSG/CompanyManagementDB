@@ -3,9 +3,9 @@ import mysql.connector
 import datetime
 from tabulate import tabulate
 
-db=input("Enter name of your Database: ")
+db = input("Enter name of your Database: ")
 
-mydb = mysql.connector.connect(host='localhost',user='root',passwd='sahaj')
+mydb = mysql.connector.connect(host='localhost',user='root',passwd='')
 mycursor = mydb.cursor()
 
 sql = "CREATE DATABASE if not exists %s" % (db,)
@@ -15,11 +15,11 @@ sql = "CREATE DATABASE if not exists %s" % (db,)
 
 mycursor.execute(sql)
 print("Database created successfully....  ")
-mycursor=mydb.cursor()
-mycursor.execute("Use "+db)
-TableName=input("\nName of the Table to be created : ")
+mycursor = mydb.cursor()
+mycursor.execute("Use " + db)
+TableName = input("\nName of the Table to be created : ")
 
-query="Create table if not exists "+TableName+"\
+query = "Create table if not exists "+ TableName +"\
 (empno int primary key,\
 name varchar(15) not null,\
 job varchar(15),\
@@ -29,7 +29,8 @@ HRA float,\
 GrossSalary float,\
 Tax float,\
 NetSalary float)"
-print("Table "+TableName+" Created Successfully....  ")
+# table created
+print("Table "+ TableName +" Created Successfully....  ")
 mycursor.execute(query)
 
 while True:
