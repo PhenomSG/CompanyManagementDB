@@ -217,7 +217,7 @@ while True:
     elif choice == '5':
         try:
             en = input('Enter Employee Number of the Record to be Deleted ---- ')
-            query = 'DELETE FROM ' + table_name + ' WHERE empno='+ str(en)
+            query = 'DELETE FROM ' + table_name + ' WHERE empno='+ en
             mycursor.execute(query)
             mydb.commit()
             c = mycursor.rowcount
@@ -231,38 +231,40 @@ while True:
 
     elif choice == '6':
         try:
-            en=input('Enter Employee Number of the Record to be modified ---- ')
-            query='select * from'+ table_name +'where empno='+en
+            en = input('Enter Employee Number of the Record to be modified ---- ')
+            query='SELECT * FROM '+ table_name +' WHERE empno='+ en
             mycursor.execute(query)
             myrecord=mycursor.fetchone()
             c=mycursor.rowcount
             if c==-1:
                 print('Empno'+ en +'does not exist')
             else:
-                mname=myrecord[1]
-                mjob=myrecord[2]
-                mbasic=myrecord[3]
-                print('Employee Number : ',myrecord[0])
-                print('Name : ',myrecord[1])
-                print('Job : ',myrecord[2])
-                print('Basic : ',myrecord[3])
-                print('DA : ',myrecord[4])
-                print('HRA : ',myrecord[5])
-                print('Gross : ',myrecord[6])
-                print('Tax : ',myrecord[7])
-                print('Net : ',myrecord[8])
+                mname = myrecord[1]
+                mjob = myrecord[2]
+                mbasic = myrecord[3]
+                print('Employee Number : ', myrecord[0])
+                print('Name : ', myrecord[1])
+                print('Job : ', myrecord[2])
+                print('Basic : ', myrecord[3])
+                print('DA : ', myrecord[4])
+                print('HRA : ', myrecord[5])
+                print('Gross : ', myrecord[6])
+                print('Tax : ', myrecord[7])
+                print('Net : ', myrecord[8])
+
                 print('-----------------------')
                 print('Type Value to modify below or just press ENTER for no change')
-                x=input('Enter Name ---- ')
-                if len(x)>0:
-                    mname=x
-                x=input('Enter Job ---- ')
-                if len(x)>0:
-                    mjob=x
-                x=input('Enter Basic Salary ----  ')
-                if len(x)>0:
-                    mbasic=float(x)
-                query='update' + table_name + 'ste name=' + "'" + mname + "'" + "'" + 'job' + "'" + ',' + 'basicsalary='\
+
+                x = input('Enter Name ---- ')
+                if len(x) > 0:
+                    mname = x
+                x = input('Enter Job ---- ')
+                if len(x) > 0:
+                    mjob = x
+                x = input('Enter Basic Salary ----  ')
+                if len(x) > 0:
+                    mbasic = float(x)
+                query = 'UPDATE ' + table_name + 'ste name=' + "'" + mname + "'" + "'" + 'job' + "'" + ',' + 'basicsalary='\
                        +str(mbasic) + 'where empno=' + en
                 print(query)
                 mycursor.execute(query)
@@ -298,9 +300,9 @@ while True:
 
     elif choice == '8':
         try:
-            query='select * from'+ table_name
+            query = 'select * from'+ table_name
             mycursor.execute(query)
-            now=datetime.datetime.now()
+            now = datetime.datetime.now()
             print("\n\n\n")
             print("-"*95)
             print("\t\t\t\t Salary Slip")
@@ -315,14 +317,13 @@ while True:
 
     elif choice == '9':
         try:
-            en=input("Enter Employee Number whose PaySlip you want to retrieve ---- ")
-            query='select * from '+ table_name +' where empno='+en
+            en = input("Enter Employee Number whose PaySlip you want to retrieve ---- ")
+            query = 'SELECT * FROM '+ table_name +' WHERE empno='+ en
             mycursor.execute(query)
             now=datetime.datetime.now()
             print("\n\n\n\t\t\t\t Salary Slip")
             print("Current Date and Time: ",end=' ')
             print(now.strftime("%Y-%m-%d  %H:%M:%S"))
-            #print(query)
             print(tabulate(mycursor, headers=['EmpNo','Name','Job','Basic Salary','DA','HRA','Gross Salary','Tax','Net Salary'], tablefmt='psql'))
         except:
             print("OOPS !!! something went wrong. Try again.... ")
