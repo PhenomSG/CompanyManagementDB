@@ -1,4 +1,4 @@
-# working
+
 import mysql.connector
 import datetime
 from tabulate import tabulate
