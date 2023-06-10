@@ -211,22 +211,22 @@ while True:
             else:
                 continue
         except Exception as e:
-            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ', e)
 
 
     elif choice == '5':
         try:
-            en=input('Enter Employee Number of the Record to be Deleted ---- ')
-            query='delete from' + table_name + 'where empno='+en
+            en = input('Enter Employee Number of the Record to be Deleted ---- ')
+            query = 'DELETE FROM ' + table_name + ' WHERE empno='+ str(en)
             mycursor.execute(query)
             mydb.commit()
             c = mycursor.rowcount
-            if c>0:
+            if c > 0:
                 print("Deletion Done....  ")
             else:
-                print('Employee Number',en,'not found')
+                print('Employee Number', en, 'not found')
         except Exception as e:
-            print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
+            print('OOPS !!! something went wrong.\nThe Exception occured is --> ', e)
 
 
     elif choice == '6':
