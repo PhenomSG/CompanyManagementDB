@@ -1,4 +1,7 @@
-# working
+# layout
+# structure of project
+
+
 import mysql.connector
 import datetime
 from tabulate import tabulate
