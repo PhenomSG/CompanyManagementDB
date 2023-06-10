@@ -141,9 +141,9 @@ while True:
 
             mgross = mbasic + mda + mhra
             mnet = mgross - mtax
-            rec = (mempno, mname, mjob, mbasic, mda, mhra, mgross, mtax, mnet)
+            rec = (str(mempno), mname, mjob, str(mbasic), str(mda), str(mhra), str(mgross), str(mtax), str(mnet))
 
-            query = "INSERT INTO " + table_name + " VALUES (%i, %s, %s, %i, %f, %f, %f, %f, %f)"
+            query = "INSERT INTO " + table_name + " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
             
             mycursor.execute(query,rec)
             mydb.commit()
