@@ -5,7 +5,7 @@ from tabulate import tabulate
 
 db = input("Enter name of your Database: ")
 
-mydb = mysql.connector.connect(host='localhost',user='root',password ='sahaj')
+mydb = mysql.connector.connect(host='localhost',user='root',password ='')
 mycursor = mydb.cursor()
 
 ''' this function checks if database exists or not

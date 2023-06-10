@@ -26,8 +26,8 @@ def check_table_exists(host, username, password, database_name, table_name):
 # Provide the MySQL connection details, database name, and table name
 host = "localhost"
 username = "root"
-password = "sahaj"
-database_name = "sahaj"
+password = ""
+database_name = ""
 table_name = "money"
 
 check_table_exists(host, username, password, database_name, table_name)

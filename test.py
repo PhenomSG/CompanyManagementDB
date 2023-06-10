@@ -26,7 +26,7 @@ def check_database_exists(host, username, password, database_name):
 # Provide the MySQL connection details and database name
 host = "localhost"
 username = "root"
-password = "sahaj"
+password = ""
 database_name = "sas"
 
 check_database_exists(host, username, password, database_name)

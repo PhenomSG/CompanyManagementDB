@@ -27,8 +27,8 @@ def update_employee_data(host, username, password, database_name, table_name, em
 # Provide the MySQL connection details, database name, table name, and employee data
 host = "localhost"
 username = "root"
-password = "sahaj"
-database_name = "sahaj"
+password = ""
+database_name = ""
 table_name = "moneyy"
 empno = 1
 name = "John Doe"

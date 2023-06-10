@@ -1,5 +1,5 @@
 import mysql.connector as ms
-cn=ms.connect(host='localhost',user='root',password = 'sahaj')
+cn=ms.connect(host='localhost',user='root',password = '')
 cr=cn.cursor()
 cr.execute("Show databases")
 x = []
