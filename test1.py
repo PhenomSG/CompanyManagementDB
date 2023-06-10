@@ -232,11 +232,11 @@ while True:
     elif choice == '6':
         try:
             en = input('Enter Employee Number of the Record to be modified ---- ')
-            query='SELECT * FROM '+ table_name +' WHERE empno='+ en
+            query ='SELECT * FROM '+ table_name +' WHERE empno='+ en
             mycursor.execute(query)
-            myrecord=mycursor.fetchone()
-            c=mycursor.rowcount
-            if c==-1:
+            myrecord = mycursor.fetchone()
+            c = mycursor.rowcount
+            if c == -1:
                 print('Empno'+ en +'does not exist')
             else:
                 mname = myrecord[1]
@@ -255,6 +255,28 @@ while True:
                 print('-----------------------')
                 print('Type Value to modify below or just press ENTER for no change')
 
+
+                def update_employee_data(host, username, password, database_name, table_name, empno, name, job, basic_salary):
+                    try:
+                        connection = mysql.connector.connect(
+                            host=host,
+                            user=username,
+                            password=password,
+                            database=database_name
+                        )
+                        cursor = connection.cursor()
+
+                        query = "UPDATE {} SET name = %s, job = %s, BasicSalary = %s WHERE empno = %s".format(table_name)
+                        values = (name, job, basic_salary, empno)
+
+                        cursor.execute(query, values)
+                        connection.commit()
+
+                        print("Employee data updated successfully.")
+
+                    except mysql.connector.Error as error:
+                        print("Error while connecting to MySQL:", error)
+
                 x = input('Enter Name ---- ')
                 if len(x) > 0:
                     mname = x
@@ -264,11 +286,8 @@ while True:
                 x = input('Enter Basic Salary ----  ')
                 if len(x) > 0:
                     mbasic = float(x)
-                query = 'UPDATE ' + table_name + 'ste name=' + "'" + mname + "'" + "'" + 'job' + "'" + ',' + 'basicsalary='\
-                       +str(mbasic) + 'where empno=' + en
-                print(query)
-                mycursor.execute(query)
-                mydb.commit()
+                update_employee_data('localhost', 'root', 'sahaj', db , table_name, en, mname, mjob, mbasic)
+
                 print('Record Modified.... ')
         except Exception as e:
             print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
@@ -276,24 +295,24 @@ while True:
 
     elif choice == '7':
         try:
-            query='select * from'+ table_name
+            query='SELECT * FROM '+ table_name
             mycursor.execute(query)
             myrecords=mycursor.fetchall()
             print("\n\n\n")
-            print('*'*95)
-            print('Employee Payroll'.centre(90))
-            print("*"*95)
+            print('*' * 95)
+            print('\t\t\tEmployee Payroll')
+            print("*" * 95)
             now = datetime.datetime.now()
             print("Current Date and Time:",end=' ')
-            print(now.steftime("%Y-%m-%d  %H:%M:%S "))
+            print(now.strftime("%Y-%m-%d  %H:%M:%S "))
             print()
-            print("-"*95)
+            print("-" * 95)
             print('%-5s %-15s %-10s %-8s %-8s %-8s %-9s %-8s %-9s'\
                   %('Empno','Name','JobBasic','DA','HRA','Gross','Tax','Net'))
-            print('-'*95)
+            print('-' * 95)
             for rec in myrecords:
-                print('%4d %-15s %-10s %8.2f %8.2f %8.2f %9.2f %8.2f %9.2f'%rec)
-            print('-'*95)
+                print('%4d %-15s %-10s %8.2f %8.2f %8.2f %9.2f %8.2f %9.2f'%(rec))
+            print('-' * 95)
         except Exception as e:
             print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
