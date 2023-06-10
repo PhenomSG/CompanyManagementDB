@@ -300,7 +300,7 @@ while True:
 
     elif choice == '8':
         try:
-            query = 'select * from'+ table_name
+            query = 'SELECT * FROM '+ table_name
             mycursor.execute(query)
             now = datetime.datetime.now()
             print("\n\n\n")
@@ -309,9 +309,9 @@ while True:
             print("-"*95)
             print("Current Date and Time: ",end=' ')
             print(now.strftime("%Y-%m-%d  %H:%M:%S"))
-            myrecords=mycursor.fetchall()
+            myrecords = mycursor.fetchall()
             for rec in myrecords:
-                print('%4d %-15s %-10s %8.2f %8.2f %8.2f %9.2f %8.2f %9.2f'%rec)
+                print('%4d \t %-15s \t %-10s \t%8.2f \t%8.2f \t%8.2f \t%9.2f \t%8.2f \t%9.2f'%rec)
         except Exception as e:
             print('OOPS !!! something went wrong.\nThe Exception occured is --> ',e)
 
