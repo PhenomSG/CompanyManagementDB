@@ -2,6 +2,8 @@ import mysql.connector
 import datetime
 from tabulate import tabulate
 
+# using functions
+
 def get_database_connection(host, username, password, db=None):
     return mysql.connector.connect(
         host=host,
