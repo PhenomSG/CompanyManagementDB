@@ -6,3 +6,7 @@ import datetime
 from tabulate import tabulate
 
 # Establishing Connection
+from connection import is_connected
+flag = is_connected()
+print(flag)
+
