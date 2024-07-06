@@ -10,6 +10,7 @@ print(flag)
 
 # Database to be used
 db = "CompanyManagementDB"
+tables = ["employees","departments","projects","employee_project","salaries"]
 print(f"Using {db} Database")
 print(f"All actions will happen inside {db} database")
 
