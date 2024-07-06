@@ -6,7 +6,7 @@ CREATE TABLE Employees (
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     job_title VARCHAR(50),
-    net_salary DECIMAL(10, 2),
+    basic_salary DECIMAL(10, 2),
     department_id INT
 );
 
