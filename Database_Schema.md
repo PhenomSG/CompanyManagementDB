@@ -5,7 +5,7 @@
 - `first_name`: VARCHAR
 - `last_name`: VARCHAR
 - `job_title`: VARCHAR
-- `net_salary`: DECIMAL
+- `basic_salary`: DECIMAL
 - `department_id`: INT (Foreign Key)
 
 ## 2. Departments Table
