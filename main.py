@@ -226,7 +226,6 @@ if flag:
             if result:
                 emp_no, salary_date, basic_salary, da, hra, gross_salary, tax, net_salary = result
                 
-                # Prepare data for tabulate
                 data = [
                     ["Employee Number:", emp_no],
                     ["Salary Date:", salary_date],
@@ -246,7 +245,6 @@ if flag:
             else:
                 print("No payslip found for the given employee number and salary date.")
 
-
         # Main menu
         def main_menu():
             print('\n' + '*'*95)
@@ -255,6 +253,7 @@ if flag:
             print('\t\t\t 1. Insert data into table')
             print('\t\t\t 2. Update data in table')
             print('\t\t\t 3. Delete data from table')
+            print('\t\t\t 4. Generate Payslip')
             print('\t\t\t 4. Exit')
             print("Enter your choice: ", end='')
 
