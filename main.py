@@ -167,7 +167,7 @@ if flag:
 
         # Function to delete data from a table
         def delete_data():
-            
+            table_name = input("Enter the table name to delete data from: ").lower()
             
             if table_name == "employees":
                 emp_no = int(input("Enter the employee number to delete: "))
