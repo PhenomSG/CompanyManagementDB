@@ -208,7 +208,6 @@ if flag:
             connection.commit()
             print(f"Data deleted from {table_name} table successfully.")
 
-
         # Function to generate a payslip for a particular employee
         def generate_payslip():
             emp_no = int(input("Enter the employee number: "))
