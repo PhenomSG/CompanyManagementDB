@@ -246,7 +246,12 @@ if flag:
                 print("No payslip found for the given employee number and salary date.")
 
         # Function to display contents of a table
-        def display_table_contents(table_name):
+        def display_table_contents():
+            print("The table names are listed below")
+            for i in range(len(db_tables)):
+                print(i+1,'.',db_tables[i])
+            table_name = input("Enter the table name to insert data into: ").lower()
+
             query = f"SELECT * FROM {table_name}"
             
             try:
@@ -296,7 +301,9 @@ if flag:
                 delete_data()
             elif choice == 4:
                 generate_payslip()
-            elif choice == '5':
+            elif choice == 5:
+                display_table_contents()
+            elif choice == '6':
                 break
             else:
                 print("Please choose a valid number")
