@@ -207,6 +207,46 @@ if flag:
             connection.commit()
             print(f"Data deleted from {table_name} table successfully.")
 
+
+        # Function to generate a payslip for a particular employee
+        def generate_payslip():
+            emp_no = int(input("Enter the employee number: "))
+            salary_date = input("Enter the salary date (YYYY-MM-DD): ")
+
+            query = """
+                SELECT emp_no, salary_date, basic_salary, da, hra, gross_salary, tax, net_salary
+                FROM Salaries
+                WHERE emp_no = %s AND salary_date = %s
+            """
+            values = (emp_no, salary_date)
+
+            cursor.execute(query, values)
+            result = cursor.fetchone()
+
+            if result:
+                emp_no, salary_date, basic_salary, da, hra, gross_salary, tax, net_salary = result
+                
+                # Prepare data for tabulate
+                data = [
+                    ["Employee Number:", emp_no],
+                    ["Salary Date:", salary_date],
+                    ["Basic Salary:", basic_salary],
+                    ["DA:", da],
+                    ["HRA:", hra],
+                    ["Gross Salary:", gross_salary],
+                    ["Tax:", tax],
+                    ["Net Salary:", net_salary],
+                ]
+                
+                print("\n" + "*" * 30)
+                print("PAYSLIP")
+                print("*" * 30)
+                print(tabulate(data, tablefmt="plain"))
+                print("*" * 30)
+            else:
+                print("No payslip found for the given employee number and salary date.")
+
+
         # Main menu
         def main_menu():
             print('\n' + '*'*95)
