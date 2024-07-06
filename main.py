@@ -245,6 +245,31 @@ if flag:
             else:
                 print("No payslip found for the given employee number and salary date.")
 
+        # Function to display contents of a table
+        def display_table_contents(table_name):
+            query = f"SELECT * FROM {table_name}"
+            
+            try:
+                cursor.execute(query)
+                rows = cursor.fetchall()
+                
+                if not rows:
+                    print(f"No data found in {table_name} table.")
+                    return
+                
+                # Get column names
+                column_names = [i[0] for i in cursor.description]
+                
+                # Print table header
+                print(f"\nContents of {table_name} Table:")
+                print('-' * 80)
+                print(tabulate(rows, headers=column_names, tablefmt="pretty"))
+                print('-' * 80)
+                
+            except ms.Error as e:
+                print(f"Error fetching data from {table_name} table: {e}")
+
+
         # Main menu
         def main_menu():
             print('\n' + '*'*95)
