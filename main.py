@@ -229,7 +229,9 @@ if flag:
                 update_data()
             elif choice == '3':
                 delete_data()
-            elif choice == '4':
+            elif choice == 4:
+                generate_payslip()
+            elif choice == '5':
                 break
             else:
                 print("Please choose a valid number")
