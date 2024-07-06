@@ -3,7 +3,6 @@ import mysql.connector as ms
 # used for connection checking
 from connection import is_connected, get_database_connection
 # used for payslip
-import datetime
 from tabulate import tabulate
 
 # Establishing Connection
