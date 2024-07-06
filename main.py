@@ -254,7 +254,7 @@ if flag:
             print('\t\t\t 2. Update data in table')
             print('\t\t\t 3. Delete data from table')
             print('\t\t\t 4. Generate Payslip')
-            print('\t\t\t 4. Exit')
+            print('\t\t\t 5. Exit')
             print("Enter your choice: ", end='')
 
         # Menu loop 
