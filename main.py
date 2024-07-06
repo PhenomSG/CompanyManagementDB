@@ -240,7 +240,7 @@ if flag:
                 print("\n" + "*" * 30)
                 print("PAYSLIP")
                 print("*" * 30)
-                print(tabulate(data, tablefmt="plain"))
+                print(tabulate(data, tablefmt="pretty"))
                 print("*" * 30)
             else:
                 print("No payslip found for the given employee number and salary date.")
