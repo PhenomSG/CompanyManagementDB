@@ -167,13 +167,38 @@ if flag:
 
         # Function to delete data from a table
         def delete_data():
-            table_name = input("Enter the table name to delete data from: ")
-            if table_name.lower() == "employees":
+            
+            
+            if table_name == "employees":
                 emp_no = int(input("Enter the employee number to delete: "))
                 query = "DELETE FROM Employees WHERE emp_no = %s"
                 values = (emp_no,)
-            
-            # skeleton made
+
+            elif table_name == "departments":
+                department_id = int(input("Enter the department id to delete: "))
+                query = "DELETE FROM Departments WHERE department_id = %s"
+                values = (department_id,)
+                
+            elif table_name == "projects":
+                project_id = int(input("Enter the project id to delete: "))
+                query = "DELETE FROM Projects WHERE project_id = %s"
+                values = (project_id,)
+                
+            elif table_name == "employee_project":
+                emp_no = int(input("Enter the employee number to delete: "))
+                project_id = int(input("Enter the project id to delete: "))
+                query = "DELETE FROM Employee_Project WHERE emp_no = %s AND project_id = %s"
+                values = (emp_no, project_id)
+                
+            elif table_name == "salaries":
+                emp_no = int(input("Enter the employee number to delete: "))
+                salary_date = input("Enter the salary date (YYYY-MM-DD) to delete: ")
+                query = "DELETE FROM Salaries WHERE emp_no = %s AND salary_date = %s"
+                values = (emp_no, salary_date)
+                
+            else:
+                print("Invalid table name.")
+                return
             
             cursor.execute(query, values)
             connection.commit()
