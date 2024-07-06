@@ -1,0 +1,47 @@
+erDiagram
+    EMPLOYEES {
+        INT emp_no PK
+        VARCHAR first_name
+        VARCHAR last_name
+        VARCHAR job_title
+        DECIMAL basic_salary
+        INT department_id FK
+    }
+    
+    DEPARTMENTS {
+        INT department_id PK
+        VARCHAR department_name
+        INT manager_id FK
+    }
+
+    PROJECTS {
+        INT project_id PK
+        VARCHAR project_name
+        DATE start_date
+        DATE end_date
+        INT department_id FK
+    }
+
+    EMPLOYEE_PROJECT {
+        INT emp_no FK
+        INT project_id FK
+        DECIMAL hours_worked
+    }
+
+    SALARIES {
+        INT emp_no FK
+        DATE salary_date PK
+        DECIMAL basic_salary
+        DECIMAL da
+        DECIMAL hra
+        DECIMAL gross_salary
+        DECIMAL tax
+        DECIMAL net_salary
+    }
+
+    EMPLOYEES ||--o{ DEPARTMENTS: "department_id"
+    DEPARTMENTS ||--o{ PROJECTS: "department_id"
+    EMPLOYEES ||--o{ SALARIES: "emp_no"
+    EMPLOYEES ||--o{ EMPLOYEE_PROJECT: "emp_no"
+    PROJECTS ||--o{ EMPLOYEE_PROJECT: "project_id"
+    EMPLOYEES ||--o{ DEPARTMENTS: "manager_id"
