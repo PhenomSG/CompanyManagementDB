@@ -215,7 +215,7 @@ if flag:
             print('\t\t\t 4. Exit')
             print("Enter your choice: ", end='')
 
-        # Write other code here
+        # Menu loop 
         while True:
             main_menu()
             choice = input().strip()
