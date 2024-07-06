@@ -85,7 +85,7 @@ if flag:
             print('\t\t\t 1. Insert data into table')
             print('\t\t\t 2. Update data in table')
             print('\t\t\t 3. Delete data from table')
-            print('\t\t\t 10. Exit')
+            print('\t\t\t 4. Exit')
             print("Enter your choice: ", end='')
 
         # Write other code here
@@ -99,7 +99,7 @@ if flag:
                 update_data()
             elif choice == '3':
                 delete_data()
-            elif choice == '10':
+            elif choice == '4':
                 break
             else:
                 print("Please choose a valid number")
