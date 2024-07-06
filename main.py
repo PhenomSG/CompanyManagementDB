@@ -115,15 +115,51 @@ if flag:
 
         # Function to update data in a table
         def update_data():
-            table_name = input("Enter the table name to update data: ")
-            if table_name.lower() == "employees":
+            print("The table names are listed below")
+            for i in range(len(db_tables)):
+                print(i+1,'.',db_tables[i])
+            table_name = input("Enter the table name to insert data into: ").lower()
+            
+            if table_name == "employees":
                 emp_no = int(input("Enter the employee number to update: "))
                 column_name = input("Enter the column name to update: ")
                 new_value = input("Enter the new value: ")
                 query = f"UPDATE Employees SET {column_name} = %s WHERE emp_no = %s"
                 values = (new_value, emp_no)
-            
-            # skeleton made
+
+            elif table_name == "departments":
+                department_id = int(input("Enter the department id to update: "))
+                column_name = input("Enter the column name to update: ")
+                new_value = input("Enter the new value: ")
+                query = f"UPDATE Departments SET {column_name} = %s WHERE department_id = %s"
+                values = (new_value, department_id)
+                
+            elif table_name == "projects":
+                project_id = int(input("Enter the project id to update: "))
+                column_name = input("Enter the column name to update: ")
+                new_value = input("Enter the new value: ")
+                query = f"UPDATE Projects SET {column_name} = %s WHERE project_id = %s"
+                values = (new_value, project_id)
+                
+            elif table_name == "employee_project":
+                emp_no = int(input("Enter the employee number to update: "))
+                project_id = int(input("Enter the project id to update: "))
+                column_name = input("Enter the column name to update: ")
+                new_value = input("Enter the new value: ")
+                query = f"UPDATE Employee_Project SET {column_name} = %s WHERE emp_no = %s AND project_id = %s"
+                values = (new_value, emp_no, project_id)
+                
+            elif table_name == "salaries":
+                emp_no = int(input("Enter the employee number to update: "))
+                salary_date = input("Enter the salary date (YYYY-MM-DD) to update: ")
+                column_name = input("Enter the column name to update: ")
+                new_value = input("Enter the new value: ")
+                query = f"UPDATE Salaries SET {column_name} = %s WHERE emp_no = %s AND salary_date = %s"
+                values = (new_value, emp_no, salary_date)
+                
+            else:
+                print("Invalid table name.")
+                return
             
             cursor.execute(query, values)
             connection.commit()
