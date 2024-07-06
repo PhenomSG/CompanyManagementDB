@@ -10,7 +10,7 @@ flag = is_connected()
 print(flag)
 
 # Database to be used
-db = "company"
+db = "CompanyManagementDB"
 print(f"Using {db} Database")
 print(f"All actions will happen inside {db} database")
 
