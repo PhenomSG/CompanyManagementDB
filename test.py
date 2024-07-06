@@ -1,3 +1,5 @@
+# to be used only for testing purpose
+
 import mysql.connector as ms
 cn=ms.connect(host='localhost',user='root',password = '')
 cr=cn.cursor()
