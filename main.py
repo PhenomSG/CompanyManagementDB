@@ -74,7 +74,7 @@ if flag:
                 salary_date = input("Enter salary date (YYYY-MM-DD): ")
                 basic_salary = float(input("Enter basic salary: "))
 
-                # da , hra calculation
+                # da , hra Calculation
                 print("Is the Employee's residence rented?(Y/N): ")
                 ans = input().strip()
                 if ans == 'Y':
