@@ -4,7 +4,7 @@ from tabulate import tabulate
 
 # using functions
 
-def get_database_connection(host, username, password, db=None):
+'''def get_database_connection(host, username, password, db=None):
     return mysql.connector.connect(
         host=host,
         user=username,
@@ -14,8 +14,8 @@ def get_database_connection(host, username, password, db=None):
         host=host,
         user=username,
         password=password
-    )
-
+    )'''
+'''
 def check_database_exists(host, username, password, db):
     try:
         connection = get_database_connection(host, username, password, db)
@@ -30,7 +30,7 @@ def check_database_exists(host, username, password, db):
             return False
     except mysql.connector.Error:
         print(f"The database '{db}' does not exist.")
-        return False
+        return False'''
 
 def check_table_exists(connection, table_name):
     try:

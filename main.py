@@ -10,3 +10,7 @@ from connection import *
 flag = is_connected()
 print(flag)
 
+# Databse to be used
+db = "company"
+
+
