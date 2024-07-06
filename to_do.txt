@@ -1,0 +1,6 @@
+-- add values
+-- screenshots
+-- checking constraints
+-- testing one more time
+
+-- if needed add more features
