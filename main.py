@@ -119,7 +119,7 @@ if flag:
             print("The table names are listed below")
             for i in range(len(db_tables)):
                 print(i+1,'.',db_tables[i])
-            table_name = input("Enter the table name to insert data into: ").lower()
+            table_name = input("Enter the table name to update data into: ").lower()
             
             if table_name == "employees":
                 emp_no = int(input("Enter the employee number to update: "))
@@ -171,7 +171,7 @@ if flag:
             print("The table names are listed below")
             for i in range(len(db_tables)):
                 print(i+1,'.',db_tables[i])
-            table_name = input("Enter the table name to insert data into: ").lower()
+            table_name = input("Enter the table name to delete data from: ").lower()
             
             if table_name == "employees":
                 emp_no = int(input("Enter the employee number to delete: "))
@@ -250,7 +250,7 @@ if flag:
             print("The table names are listed below")
             for i in range(len(db_tables)):
                 print(i+1,'.',db_tables[i])
-            table_name = input("Enter the table name to insert data into: ").lower()
+            table_name = input("Enter the table name to display data: ").lower()
 
             query = f"SELECT * FROM {table_name}"
             
@@ -299,9 +299,9 @@ if flag:
                 update_data()
             elif choice == '3':
                 delete_data()
-            elif choice == 4:
+            elif choice == '4':
                 generate_payslip()
-            elif choice == 5:
+            elif choice == '5':
                 display_table_contents()
             elif choice == '6':
                 break
