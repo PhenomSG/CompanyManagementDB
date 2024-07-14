@@ -281,7 +281,9 @@ def display_table_contents(connection):
 def main():
     st.title("Company Management System")
     connection = establish_connection()
-    
+    cursor = connection.cursor()
+    cursor.execute("USE companymanagementdb")
+
     if connection:
         st.sidebar.title("Actions")
         option = st.sidebar.selectbox("Select an action:", ["Insert Data", "Update Data", "Delete Data", "Generate Payslip", "Display Table Contents", "Exit"])
