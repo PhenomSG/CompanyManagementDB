@@ -1,0 +1,6 @@
+streamlit
+mysql-connector-python
+tabulate
+pandas
+mysql
+mysql.connector
