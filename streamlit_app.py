@@ -218,6 +218,8 @@ def delete_data(connection):
 
 # Generate payslip function for Streamlit
 def generate_payslip(connection):
+    st.title("Generate Employee Payslip")
+
     emp_no = st.number_input("Enter the employee number:", min_value=1, step=1)
     salary_date = st.date_input("Enter the salary date:")
     cursor = connection.cursor()
@@ -235,24 +237,42 @@ def generate_payslip(connection):
     if result:
         emp_no, salary_date, basic_salary, da, hra, gross_salary, tax, net_salary = result
 
-        data = [
-            ["Employee Number:", emp_no],
-            ["Salary Date:", salary_date],
-            ["Basic Salary:", basic_salary],
-            ["DA:", da],
-            ["HRA:", hra],
-            ["Gross Salary:", gross_salary],
-            ["Tax:", tax],
-            ["Net Salary:", net_salary],
-        ]
+        # Creating a DataFrame for better formatting
+        data = {
+            "Description": ["Employee Number", "Salary Date", "Basic Salary", "DA", "HRA", "Gross Salary", "Tax", "Net Salary"],
+            "Amount": [emp_no, salary_date, basic_salary, da, hra, gross_salary, tax, net_salary]
+        }
+        df = pd.DataFrame(data)
 
-        st.write("\n" + "*" * 30)
-        st.write("PAYSLIP")
-        st.write("*" * 30)
-        st.table(data)
-        st.write("*" * 30)
+        st.markdown(f"""
+            <div style="text-align: center; padding: 20px;">
+                <h2 style="color: #4CAF50;">PAYSLIP</h2>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.table(df)
+
+        st.markdown("""
+            <style>
+            .stTable tbody tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            .stTable th {
+                background-color: #4CAF50;
+                color: white;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+            <div style="text-align: center; padding: 20px;">
+                <p><strong>Generated on:</strong> {pd.Timestamp('now')}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
     else:
         st.error("No payslip found for the given employee number and salary date.")
+
 
 # Display table contents function for Streamlit
 def display_table_contents(connection):
