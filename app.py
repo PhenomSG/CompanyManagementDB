@@ -286,7 +286,7 @@ def main():
 
     if connection:
         st.sidebar.title("Actions")
-        option = st.sidebar.selectbox("Select an action:", ["Insert Data", "Update Data", "Delete Data", "Generate Payslip", "Display Table Contents", "Exit"])
+        option = st.sidebar.selectbox("Select an action:", ["Insert Data", "Update Data", "Delete Data", "Generate Payslip", "Display Table Contents"])
         
         if option == "Insert Data":
             insert_data(connection)
@@ -298,8 +298,6 @@ def main():
             generate_payslip(connection)
         elif option == "Display Table Contents":
             display_table_contents(connection)
-        elif option == "Exit":
-            st.write("Thank you for using the Company Management System.")
         
         if connection.is_connected():
             connection.close()
