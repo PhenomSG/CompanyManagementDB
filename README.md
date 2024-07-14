@@ -1,6 +1,6 @@
 # Payroll Management System
 
-A comprehensive payroll management system built with Python and MySQL. The system manages employee records, departments, projects, and salary details.
+A comprehensive payroll management system built with Python, Streamlit, and MySQL. The system manages employee records, departments, projects, and salary details.
 
 ## Database Schema
 
@@ -69,8 +69,8 @@ A comprehensive payroll management system built with Python and MySQL. The syste
 
 ### User Interface
 
-- **Main Menu**
-  - Presents a user-friendly interface with options to insert, update, delete data, generate payslips, and exit.
+- **Streamlit Application**
+  - Provides a user-friendly web interface with options to insert, update, delete data, generate payslips, and view other functionalities.
   - Ensures intuitive navigation through the system functionalities.
 
 ## Installation
@@ -94,12 +94,12 @@ A comprehensive payroll management system built with Python and MySQL. The syste
 
 ## Usage
 
-1. Run the script:
+1. Run the Streamlit application:
     ```sh
-    python payroll_management_system.py
+    streamlit run streamlit_app.py
     ```
 
-2. Follow the on-screen instructions to interact with the system.
+2. Open your web browser and go to the provided URL to interact with the application.
 
 ## License
 
