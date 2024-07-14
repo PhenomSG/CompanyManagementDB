@@ -2,6 +2,7 @@ import streamlit as st
 import mysql.connector as ms
 from connection import is_connected, get_database_connection
 from tabulate import tabulate
+import pandas as pd
 
 # Function to establish connection
 def establish_connection():
