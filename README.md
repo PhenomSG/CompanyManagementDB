@@ -77,7 +77,7 @@ A comprehensive payroll management system built with Python, Streamlit, and MySQ
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/SahajG009/Payroll-Management-System.git
+    git clone https://github.com/PhenomSG/Payroll-Management-System.git
     ```
 
 2. Navigate to the project directory:
